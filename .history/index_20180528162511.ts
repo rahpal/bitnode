@@ -2,6 +2,8 @@
  * Created by drapal on Jun 2017.
  */
 
+var coinbase = require('coinbase');
+var client   = new coinbase.Client({'apiKey': 'J9QEYRnl1J8Jm0rR', 'apiSecret': '21ew'});
 var MongoClient = require('mongodb').MongoClient;
 var dateFormat = require('dateformat');
 const path = require('path');
@@ -40,32 +42,17 @@ const notifier = require('node-notifier');
 }*/
 let previousPrice:number = 0;
 setInterval(function(){
-	APIService.get(null, "https://api.coinmarketcap.com/v1/ticker/?convert=USD&limit=100", {}, null)
+	APIService.get(null, "https://api.coinmarketcap.com/v1/ticker/?convert=INR&limit=10", {}, null)
 			.then((response: any)=>{
-				response.find((item: any) => {
+				response.forEach((item: any) => {
 					let ada, xlm;
-					/*if(item.symbol === 'ADA'){
-						ada = item.price_usd;
-						console.log("ADA : "+ada);
-						return;
-					}*/
+					if(item.symbol === 'ADA'){
+						ada = item.price_inr;
+						console.log(ada);
+					}
 					if(item.symbol === 'NANO'){
-						xlm = item.price_usd;
-						console.log("NANO : "+xlm);
-						if(xlm > 3.7){
-							notifier.notify({
-								title: "Price Changed.",
-								message: 'Current Price : '+ xlm,
-								//icon: path.join(__dirname, 'images/bit300.png'), // Absolute path (doesn't work on balloons),
-								sound: false, // Only Notification Center or Windows Toasters
-								wait: false, // Wait with callback, until user action is taken against notification
-								timeout: 100, // Takes precedence over wait if both are defined. 
-								 closeLabel: "CLOSE", // String. Label for cancel button 
-							  }, function (err:any, response:any) {
-								// Response is response from notification
-							  });
-						}
-						return;
+						xlm = item.price_inr;
+						console.log(xlm);
 					}
 				});
 			},()=>{
@@ -104,4 +91,4 @@ setInterval(function(){
 			});
 		}
 	});*/
-},1000*60);
+},5000);

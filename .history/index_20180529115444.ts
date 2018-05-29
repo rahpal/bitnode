@@ -2,6 +2,8 @@
  * Created by drapal on Jun 2017.
  */
 
+var coinbase = require('coinbase');
+var client   = new coinbase.Client({'apiKey': 'J9QEYRnl1J8Jm0rR', 'apiSecret': '21ew'});
 var MongoClient = require('mongodb').MongoClient;
 var dateFormat = require('dateformat');
 const path = require('path');

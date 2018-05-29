@@ -2,6 +2,8 @@
  * Created by drapal on Jun 2017.
  */
 
+var coinbase = require('coinbase');
+var client   = new coinbase.Client({'apiKey': 'J9QEYRnl1J8Jm0rR', 'apiSecret': '21ew'});
 var MongoClient = require('mongodb').MongoClient;
 var dateFormat = require('dateformat');
 const path = require('path');
@@ -52,7 +54,7 @@ setInterval(function(){
 					if(item.symbol === 'NANO'){
 						xlm = item.price_usd;
 						console.log("NANO : "+xlm);
-						if(xlm > 3.7){
+						if(xlm > 3.8){
 							notifier.notify({
 								title: "Price Changed.",
 								message: 'Current Price : '+ xlm,
